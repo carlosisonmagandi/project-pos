@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include your master page JavaScript file -->
+    <!-- <script src="js\register.js"></script> -->
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <!-- Include your master page JavaScript file -->
+        <script src="js\manage-items.js"></script>
+        
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.css">
+
+ 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script>
+        var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+
+        if (accounts[0].session ==='False') {
+            console.log("success")
+            window.location.href = 'login.html';
+        }
+    </script>
+<style>
+    
+  html, body {
+        height: 100%;
+        margin: 0;
+        /* padding:10px; */
+        background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.8)), url("assets/img/pos-background.png");
+        
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+    }
+
+    .custom-bg-color1 {
+        /* background-color: blue; */
+       
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .custom-bg-color2 {
+        background-color: green;
+        display: flex;
+      flex-direction: column;
+       
+    }
+    .custom-bg-color3 {
+        background-color: rgb(65, 215, 187);
+        height: 50px;
+        margin: 10px;
+    
+    }
+
+    .row-height-30 {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        margin: 10px;
+        border-radius: 3px;
+        border: 1px solid gray;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        /* background-color: antiquewhite; */
+    }
+
+    .row-height-70 {
+        flex-grow: 1;
+        margin: 10px;
+        /* background-color: rgb(137, 94, 38); */
+        padding: 12px;
+        border-radius: 3px;
+        border: 1px solid gray;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .row-height{
+        flex-grow: 15;
+        margin: 10px;
+        background-color: rgb(137, 94, 38);
+    }
+    .row-height2{
+        flex-grow: 1;
+        margin: 10px;
+        background-color: rgb(137, 94, 38);
+    }
+    #repeater-div{
+    /* background-color: rgb(222, 21, 132);margin-left: 0px;    */
+    background: none;
+    } 
+    .responsive-img {
+    max-width: 50%;
+    height: auto;
+    
+    }
+    #record-details{
+        /* background-color: chartreuse; */
+        background: none;
+    }
+</style> 
+
+
+</head>
+<body>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" >Welcome User:</a>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Account Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+    
+                    <li><a class="dropdown-item" onclick="Logout()" >Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div class="">
+        <div class="row">
+          <div class="col custom-bg-color1">
+            <div class="row row-height-30">
+                <div class="container d-flex align-items-center justify-content-center">
+                    <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="exampleText">Search by:</label>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <input type="text" class="form-control" id="codeInput" placeholder="Code">
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                              <input type="text" class="form-control" id="titleInput" placeholder="Title">
+                            </div>
+                          </div>
+                      </div>
+                      
+                </div>
+            </div>
+            
+            <div class="row row-height-70">
+                <div class="row" id="repeater-div">
+                  
+                    <div class="col-md-3" id="image-details"> <!-- Right div -->
+                       
+                    </div>
+                    <div class="col-md-9" id="record-details"> <!-- Right div -->
+                
+                    </div>
+                    
+                </div>    
+            </div>
+          </div>
+          <div class="col custom-bg-color2">
+            <div class="row row-height">
+                asd
+            </div>  
+            <div class="row row-height2">
+                button div
+            </div>  
+          </div>
+        </div>
+      </div>
+      <script>
+        // Assuming the records are stored in localStorage under the key 'records'
+        const records = JSON.parse(localStorage.getItem('items'));
+    
+        // Select the 'record-details' element
+        const recordDetailsElement = document.getElementById('record-details');
+        const DetailsEimagelement = document.getElementById('image-details');
+    
+        // Function to filter records based on the search input
+        function filterRecords(searchCode, searchTitle) {
+            // Clear the previous results
+            recordDetailsElement.innerHTML = '';
+            DetailsEimagelement.innerHTML = '';
+    
+            // Filter the records array based on the search input
+            const filteredRecords = records.filter(record => {
+                const codeMatch = record.code.toLowerCase().includes(searchCode.toLowerCase());
+                const titleMatch = record.title.toLowerCase().includes(searchTitle.toLowerCase());
+                return codeMatch || titleMatch;
+            });
+    
+            
+            if (filteredRecords.length > 0) {
+                
+                // Iterate over the filtered records array
+                filteredRecords.forEach(record => {
+                    // Create dynamic HTML elements to display the record details
+                    const recordContainer = document.createElement('div');
+                    recordContainer.style.paddingBottom = '20px';
+                    recordContainer.style.borderBottom = '1px solid gray';
+    
+                    const titleLabel = document.createElement('td');
+                    titleLabel.textContent = 'Title: ';
+                    titleLabel.style.fontWeight = 'bold';
+    
+                    const titleValue = document.createElement('td');
+                    titleValue.textContent = record.title;
+                    titleValue.style.marginBottom = '8px';
+    
+                    const codeLabel = document.createElement('a');
+                    codeLabel.textContent = 'Code: ';
+                    codeLabel.style.fontWeight = 'bold';
+    
+                    const codeValue = document.createElement('a');
+                    codeValue.textContent = record.code;
+                    codeValue.style.position = 'absolute';
+
+                    const qty = document.createElement('input');
+                    qty.type='number';
+                    qty.min='1';
+                    qty.placeholder='Enter quantity';
+                    qty.style.marginLeft='40%';
+                    qty.style.width='120px';
+
+                    const addBtn = document.createElement('button');
+                    addBtn.className='btn btn-success';
+                    addBtn.textContent='Add';
+                    addBtn.style.marginLeft='20px';
+                    addBtn.id='addBtn';
+                    
+                    
+                    // Attach event listener to the button
+                    addBtn.addEventListener('click', function() {
+                        const currentIdValue = idValue.textContent;
+                        const currentEarningsValue = earningsValue.textContent;
+                        alert(currentIdValue);
+                        alert(currentEarningsValue);
+                        alert(qty.value);
+                    });
+
+    
+                    const priceLabel = document.createElement('td');
+                    priceLabel.textContent = 'Price: ';
+                    priceLabel.style.fontWeight = 'bold';
+    
+                    const priceValue = document.createElement('td');
+                    const totalPrice = parseFloat(record.price) + parseFloat(record.earnings);
+                    priceValue.textContent = totalPrice.toFixed(2);
+                    priceValue.style.marginBottom = '15px';
+
+
+                    const idLabel = document.createElement('a');
+                    idLabel.textContent = 'Id: ';
+                    idLabel.style.fontWeight = 'bold';
+                    idLabel.style.display='none';
+    
+                    const idValue = document.createElement('a');
+                    idValue.textContent = record.id;
+                    idValue.style.position = 'absolute';
+                    idValue.style.display='none';
+
+
+                    const earningsLabel = document.createElement('td');
+                    earningsLabel.textContent = 'Earning: ';
+                    earningsLabel.style.fontWeight = 'bold';
+                    earningsLabel.style.display='none';
+
+                    const earningsValue = document.createElement('td');
+                    earningsValue.textContent = record.earnings;
+                    earningsValue.style.marginBottom = '8px';
+                    earningsValue.style.display='none';
+
+
+                    // Assign earningsValue to the outer variable
+                    earningsValueOuter = earningsValue;
+
+
+    
+                    const imageElement = document.createElement('img');
+                    imageElement.src = record.imagePath;
+                    imageElement.alt = 'Image';
+                    imageElement.style.marginBottom = '24px';
+                    imageElement.style.border='2px solid black';
+                    imageElement.style.boxShadow=' box-shadow: 0 px 4px rgba(0, 0, 0, .5);';
+                    imageElement.style.borderRadius='6px';
+                    imageElement.style.opacity='.8';
+                    imageElement.style.width = '100px'; // Set the width to 100 pixels
+                    imageElement.style.height = '90px'; // Set the height to 90 pixels
+                     
+                    
+                    
+
+    
+                    // Append the dynamically created elements to the 'record-details' element
+                    recordContainer.appendChild(titleLabel);
+                    recordContainer.appendChild(titleValue);
+                    recordContainer.appendChild(codeLabel);
+                    recordContainer.appendChild(codeValue);
+                    recordContainer.appendChild(qty); 
+                    recordContainer.appendChild(addBtn); 
+                    recordContainer.appendChild(priceLabel);
+                    recordContainer.appendChild(priceValue);    
+                    recordContainer.appendChild(idLabel);
+                    recordContainer.appendChild(idValue);  
+                    recordContainer.appendChild(earningsLabel);
+                    recordContainer.appendChild(earningsValue);
+
+                    DetailsEimagelement.appendChild(imageElement);
+                    recordDetailsElement.appendChild(recordContainer);
+
+                    
+                    // Get the button element by its ID
+    
+                });
+            } else {
+                // Display a message if no records are found
+                recordDetailsElement.textContent = 'No records found.';
+            }
+        }
+    
+        // Event listener for the search inputs
+        document.getElementById('codeInput').addEventListener('input', function (event) {
+            const searchCode = event.target.value;
+            const searchTitle = document.getElementById('codeInput').value;
+            filterRecords(searchCode, searchTitle);
+        });
+    
+        document.getElementById('titleInput').addEventListener('input', function (event) {
+            const searchCode = document.getElementById('titleInput').value;
+            const searchTitle = event.target.value;
+            filterRecords(searchCode, searchTitle);
+        });
+    
+        // Filter records initially with empty search inputs
+        filterRecords('', '');
+
+        const button = document.getElementById('addBtn');
+
+
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script> 
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+</body>
+</html>
