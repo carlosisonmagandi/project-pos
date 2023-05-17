@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Statistics</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+</head>
+<body>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <script>
+       // Retrieve data from local storage
+const allOrders = JSON.parse(localStorage.getItem('allOrders'));
+
+// Calculate profits per month
+const profitsPerMonth = {};
+
+allOrders.forEach(order => {
+  const date = new Date(order.date);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Months are zero-based, so we add 1
+  const formattedDate = `${year}-${month.toString().padStart(2, '0')}`;
+
+  if (!profitsPerMonth[formattedDate]) {
+    profitsPerMonth[formattedDate] = 0;
+  }
+
+  profitsPerMonth[formattedDate] += parseFloat(order.earnings); // Convert earnings to number
+});
+
+// Sort profits per month based on keys
+const sortedProfitsPerMonth = Object.entries(profitsPerMonth).sort((a, b) => {
+  return a[0].localeCompare(b[0]);
+});
+
+// Extract sorted keys and values
+const sortedLabels = sortedProfitsPerMonth.map(entry => entry[0]);
+const sortedData = sortedProfitsPerMonth.map(entry => entry[1]);
+
+// Chart configuration
+const ctx = document.getElementById('myChart');
+const chartData = {
+  labels: sortedLabels,
+  datasets: [{
+    label: 'Profit for the year 2023',
+    data: sortedData,
+    borderWidth: 1
+  }]
+};
+
+// Create chart
+const chart = new Chart(ctx, {
+  type: 'bar',
+  data: chartData,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+// Print button
+const printButton = document.createElement('button');
+printButton.textContent = 'Print Chart';
+printButton.addEventListener('click', () => {
+  window.print();
+});
+
+// Append print button to the document
+document.body.appendChild(printButton);
+
+
+      </script>
+
+</body>
+</html>

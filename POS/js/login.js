@@ -11,6 +11,10 @@ function login() {
             return user.email === email && user.password === password && user.role === 'Admin';
         });
 
+        var staff = users.find(function (staff) {
+            return staff.email === email && staff.password === password && staff.role === 'Staff';
+        });
+
         if (user) {
             // User found, perform login actions
             alert('Login successful!!');
@@ -23,12 +27,23 @@ function login() {
 
             // Redirect to homepage or perform other actions
             window.location.href = 'index.html';
-
-           
+        } 
+        else {
+            if (staff) {
+                // User found, perform login actions
+                alert('Login successful!!');
     
-        } else {
-            // User not found or invalid credentials
-            alert('Invalid email or password!');
+                var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+                if (accounts.length > 0) {
+                    accounts[0].session = 'True'; // Set the session field to True
+                    localStorage.setItem('accounts', JSON.stringify(accounts));
+                }
+    
+                // Redirect to homepage or perform other actions
+                window.location.href = 'POS-view.html';
+            } else{alert('Invalid email or password!');}
+            
+            
         }
     } else {
         // No user data found in localStorage

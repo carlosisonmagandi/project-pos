@@ -47,7 +47,12 @@ function addItem() {
     var storedItems = JSON.parse(localStorage.getItem('items')) || [];
   
     // Get the total row count
-    var id = storedItems.length + 1;
+    //var id = storedItems.length + 1;
+    var id=1;
+    if (storedItems.length > 0) {
+      id = storedItems[storedItems.length - 1].id + 1;
+      }
+    var id= storedItems[storedItems.length-1].id+1;
   
     var newItem = {
       id: id,
@@ -349,48 +354,48 @@ $(document).ready(function() {
   });
 
 //   ------------------------------------------------------------------------------------
-//Update modal
-$(document).ready(function() {
-    // ...
+// //Update modal
+// $(document).ready(function() {
+//     // ...
   
-    // Event listener for update icon
-    $('#datatablesSimple1').on('click', '.edit-icon', function() {
-      var id = $(this).data('id');
+//     // Event listener for update icon
+//     $('#datatablesSimple1').on('click', '.edit-icon', function() {
+//       var id = $(this).data('id');
       
   
-      // Retrieve item data from localStorage
-      var items = JSON.parse(localStorage.getItem('items')) || [];
+//       // Retrieve item data from localStorage
+//       var items = JSON.parse(localStorage.getItem('items')) || [];
   
-      // Find the item object with the matching ID
-      var item = items.find(function(item) {
-        return item.id === id;
-      });
+//       // Find the item object with the matching ID
+//       var item = items.find(function(item) {
+//         return item.id === id;
+//       });
   
-      if (item) {
-        // Populate the modal fields with the item's data
-        $('#editModal #id').val(item.id);
-        $('#editModal #category').val(item.category);
-        $('#editModal #code').val(item.code);
-        $('#editModal #title').val(item.title);
-        $('#editModal #price').val(item.price);
-        $('#editModal #earnings').val(item.earnings);
-        $('#editModal #stock').val(item.stock);
-        $('#editModal #date').val(item.date);
-        // Add additional fields as necessary
+//       if (item) {
+//         // Populate the modal fields with the item's data
+//         $('#editModal #id').val(item.id);
+//         $('#editModal #category').val(item.category);
+//         $('#editModal #code').val(item.code);
+//         $('#editModal #title').val(item.title);
+//         $('#editModal #price').val(item.price);
+//         $('#editModal #earnings').val(item.earnings);
+//         $('#editModal #stock').val(item.stock);
+//         $('#editModal #date').val(item.date);
+//         // Add additional fields as necessary
         
-        // Open the modal
-        $('#editModal').modal('show');
-      }
-    });
+//         // Open the modal
+//         $('#editModal').modal('show');
+//       }
+//     });
 
-      // Event listener for Close button
-      $('#editModal').on('click', '.btn-secondary, .close', function() {
-        // Close the modal
-        $('#editModal').modal('hide');
-      });
+//       // Event listener for Close button
+//       $('#editModal').on('click', '.btn-secondary, .close', function() {
+//         // Close the modal
+//         $('#editModal').modal('hide');
+//       });
   
  
-  });
+//   });
 
   
 
