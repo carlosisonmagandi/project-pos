@@ -25,35 +25,35 @@ $(document).ready(function() {
     });
     // Event listener for delete icon
     $(document).ready(function() {
-        $('#datatablesSimple1').on('click', '.delete-icon', function() {
-          var id = $(this).data('id');
-          
-          // Retrieve staffs data from localStorage
-          var staffs = JSON.parse(localStorage.getItem('staffs')) || [];
+      $('#datatablesSimple1').on('click', '.delete-icon', function() {
+        var id = $(this).data('id');
+        
+        // Retrieve accounts data from localStorage
+        var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
       
-          // Find the index of the staff object to be deleted
-          var index = -1;
-          for (var i = 0; i < staffs.length; i++) {
-            if (staffs[i].id === id) {
-              index = i;
-              break;
-            }
-          }
-          // Remove the staff object from the staffs array
-          if (index !== -1) {
-            staffs.splice(index, 1);
-          }
+        // Find the index of the staff object to be deleted
+        var index = accounts.findIndex(function(account) {
+          return account.id === id;
+        });
+    
+        // Remove the staff object from the accounts array
+        if (index !== -1) {
+          accounts.splice(index, 1);
       
-          // Update localStorage with modified staffs data
-          localStorage.setItem('staffs', JSON.stringify(staffs));
+          // Update localStorage with modified accounts data
+          localStorage.setItem('accounts', JSON.stringify(accounts));
       
           // Delete the row from DataTable
           var table = $('#datatablesSimple1').DataTable();
           table.row($(this).closest('tr')).remove().draw();
       
           alert('Delete ID: ' + id);
-        });
+        } else {
+          alert('Account not found!');
+        }
       });
+    });
+    
       
   
     // Enable pagination

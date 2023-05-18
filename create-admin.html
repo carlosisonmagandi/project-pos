@@ -97,18 +97,21 @@
         var passwordCell=row.insertCell(1)
         var emailCell = row.insertCell(2);
         var roleCell = row.insertCell(3);
-        var deleteCell = row.insertCell(4);
-        var updateCell = row.insertCell(5);
-        var sessionCell= row.insertCell(6);
+        var actionsCell = row.insertCell(4);
+        // var deleteCell = row.insertCell(4);
+        // var updateCell = row.insertCell(5);
+        //var sessionCell= row.insertCell(6);
         
 
         usernameCell.innerHTML = accounts[i].userName;
         passwordCell.innerHTML = accounts[i].password;
         emailCell.innerHTML = accounts[i].email;
         roleCell.innerHTML = accounts[i].role;
-        deleteCell.innerHTML = '<button onclick="deleteAccount(' + i + ')">Delete</button>';
-        updateCell.innerHTML = '<button onclick="updateAccount(' + i + ')">Update</button>';
-        sessionCell.innerHTML = accounts[i].session;
+        actionsCell.innerHTML = '<button class="btn btn-danger" onclick="deleteAccount(' + i + ')">Delete</button> ' +
+                        '<button class="btn btn-warning" onclick="updateAccount(' + i + ')">Update</button>';
+        // deleteCell.innerHTML = '<button class="btn btn-danger" onclick="deleteAccount(' + i + ')">Delete</button>';
+        // updateCell.innerHTML = '<button class="btn btn-warning" onclick="updateAccount(' + i + ')">Update</button>';
+        //sessionCell.innerHTML = accounts[i].session;
       }
     }
 
