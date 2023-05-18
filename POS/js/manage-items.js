@@ -1,98 +1,95 @@
 function addItem() {
-    // Retrieve input values
-    var category = document.getElementById('category').value;
-    var code = document.getElementById('code').value;
-    var title = document.getElementById('title').value;
-    var price = document.getElementById('price').value;
-    var earnings = document.getElementById('earnings').value;
-    var stock = document.getElementById('stock').value;
-  
-    // Check if any of the fields are empty
-    if (!category || !code || !title || !price || !earnings || !stock) {
-      alert('Please fill in all the fields.');
-      return; // Exit the function without adding the item
-    }
-    // Retrieve existing items from local storage
-    var storedItems = JSON.parse(localStorage.getItem('items')) || [];
+  // Retrieve input values
+  var category = document.getElementById('category').value;
+  var code = document.getElementById('code').value;
+  var title = document.getElementById('title').value;
+  var price = document.getElementById('price').value;
+  var earnings = document.getElementById('earnings').value;
+  var stock = document.getElementById('stock').value;
 
-    // Check if the category, code, and title already exist
-    var existingItem = storedItems.find(function(item) {
-        return item.category === category && item.code === code ;
-    });
+  // Check if any of the fields are empty
+  if (!category || !code || !title || !price || !earnings || !stock) {
+    alert('Please fill in all the fields.');
+    return; // Exit the function without adding the item
+  }
 
-    if (existingItem) {
-        alert('This item already exists. Please enter unique values for category, code, and title.');
-        return; // Exit the function without adding the item
-    }
-  
-    var currentDate = new Date();
-  
-    // Extracting individual date components
-    var year = currentDate.getFullYear();
-    var month = currentDate.getMonth() + 1; // Month is zero-based, so add 1
-    var day = currentDate.getDate();
-  
-    // Formatting the date as desired
-    var formattedDate = year + '-' + month + '-' + day;
-  
-    console.log(formattedDate); // Output: "2023-05-12" (assuming current date is May 12, 2023)
-  
-    var date = formattedDate;
-  
-    // File path of the image
-    var fileInput = document.getElementById('myFileInput');
-    var imagePath = 'assets/img/' + getFileNameFromPath(fileInput.value); // Adjust the file path accordingly
-  
-    // Retrieve existing items from local storage
-    var storedItems = JSON.parse(localStorage.getItem('items')) || [];
-  
-    // Get the total row count
-    //var id = storedItems.length + 1;
-    var id=1;
-    if (storedItems.length > 0) {
-      id = storedItems[storedItems.length - 1].id + 1;
-      }
-    var id= storedItems[storedItems.length-1].id+1;
-  
-    var newItem = {
-      id: id,
-      imagePath: imagePath,
-      category: category,
-      code: code,
-      title: title,
-      price: price,
-      earnings: earnings,
-      stock: stock,
-      date: date,
-    };
-  
-    // Add new item to the array
-    storedItems.push(newItem);
-  
-    // Store updated items in local storage
-    localStorage.setItem('items', JSON.stringify(storedItems));
-  
-    // Clear input fields
-    document.getElementById('category').value = '';
-    document.getElementById('code').value = '';
-    document.getElementById('title').value = '';
-    document.getElementById('price').value = '';
-    document.getElementById('earnings').value = '';
-    document.getElementById('stock').value = '';
-  
-    alert('Created Successfully');
-    // Add the new item to the DataTable
-     var table = $('#datatablesSimple1').DataTable();
-    table.row.add(newItem).draw(false);
+  // Retrieve existing items from local storage
+  var storedItems = JSON.parse(localStorage.getItem('items')) || [];
+
+  // Check if the category, code, and title already exist
+  var existingItem = storedItems.find(function(item) {
+    return item.category === category && item.code === code;
+  });
+
+  if (existingItem) {
+    alert('This item already exists. Please enter unique values for category, code, and title.');
+    return; // Exit the function without adding the item
   }
-  //create this function because by defailt if we alert the value of fileInput, the value is C:\fakepath\<image>
-  // Helper function to extract file name from the file path
-  function getFileNameFromPath(path) {
-    var startIndex = path.lastIndexOf('\\') + 1;
-    var endIndex = path.length;
-    var fileName = path.substring(startIndex, endIndex);
-    return fileName;
+
+  var currentDate = new Date();
+
+  // Extracting individual date components
+  var year = currentDate.getFullYear();
+  var month = currentDate.getMonth() + 1; // Month is zero-based, so add 1
+  var day = currentDate.getDate();
+
+  // Formatting the date as desired
+  var formattedDate = year + '-' + month + '-' + day;
+
+  console.log(formattedDate); // Output: "2023-05-12" (assuming current date is May 12, 2023)
+
+  var date = formattedDate;
+
+  // File path of the image
+  var fileInput = document.getElementById('myFileInput');
+  var imagePath = 'assets/img/' + getFileNameFromPath(fileInput.value); // Adjust the file path accordingly
+
+  // Get the total row count
+  var id = 1;
+  if (storedItems.length > 0) {
+    id = storedItems[storedItems.length - 1].id + 1;
   }
+
+  var newItem = {
+    id: id,
+    imagePath: imagePath,
+    category: category,
+    code: code,
+    title: title,
+    price: price,
+    earnings: earnings,
+    stock: stock,
+    date: date,
+  };
+
+  // Add new item to the array
+  storedItems.push(newItem);
+
+  // Store updated items in local storage
+  localStorage.setItem('items', JSON.stringify(storedItems));
+
+  // Clear input fields
+  document.getElementById('category').value = '';
+  document.getElementById('code').value = '';
+  document.getElementById('title').value = '';
+  document.getElementById('price').value = '';
+  document.getElementById('earnings').value = '';
+  document.getElementById('stock').value = '';
+
+  alert('Created Successfully');
+  // Add the new item to the DataTable
+  var table = $('#datatablesSimple1').DataTable();
+  table.row.add(newItem).draw(false);
+}
+
+// Helper function to extract file name from the file path
+function getFileNameFromPath(path) {
+  var startIndex = path.lastIndexOf('\\') + 1;
+  var endIndex = path.length;
+  var fileName = path.substring(startIndex, endIndex);
+  return fileName;
+}
+
   
 
 // ---------------------------------------------------------------------------------------

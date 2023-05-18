@@ -2,14 +2,14 @@ function addStaff() {
     
 
     var userName = document.getElementById('userName').value;
-    var inputFirstName = document.getElementById('firstName').value;
+    var firstName = document.getElementById('firstName').value;
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     var confirmPassword = document.getElementById('confirmPassword').value;
     var role = 'Staff';
     var session = 'True';
 
-    if(!userName || !inputFirstName || !email || !password || !confirmPassword ){
+    if(!userName || !firstName || !email || !password || !confirmPassword ){
         alert('Please fill the required fields')
     }
     else{
@@ -30,7 +30,7 @@ function addStaff() {
         var account = {
             id: id,
             userName: userName,
-            inputFirstName: inputFirstName,
+            firstName: firstName,
             email: email,
             password: password,
             confirmPassword: confirmPassword,
