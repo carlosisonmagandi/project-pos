@@ -33,6 +33,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 window.location.href = 'manage-items.html';
             });
 
+            var chartLink = document.getElementById("chartLink");
+            chartLink.addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+
+                // Call your existing jQuery function for the "Create User" action
+                $("#chartLink").click();
+                window.location.href = 'chart-report.html';
+            });
+
+
+
         }
     };
     xhr.open("GET", "master.html", true);

@@ -16,14 +16,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <!-- ----------- -->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script>
-         var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
-
-                if (accounts[0].session ==='False') {
-                    console.log("success")
-                    window.location.href = 'login.html';
-                }
-        </script>
+        <!-- call the authorization function -->
+        <script src="js/authorization.js"></script>
+        
     </head>
     <body class="sb-nav-fixed" >
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -54,7 +49,8 @@
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion sb-sidenav-dark"  id="sidenavAccordion">
+                    
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
@@ -71,7 +67,7 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                    <a class="nav-link" id="lightNavBtn">Light Sidenav</a>
                                 </nav>
                             </div>
                             
@@ -100,7 +96,15 @@
                                 </nav>
                             </div>
                             <!--  -->
-
+                            <script>
+                                document.getElementById('lightNavBtn').addEventListener('click', function() {
+                                var navElement = document.getElementById('sidenavAccordion');
+                                var theme = "light"; // Replace this with the desired value
+                                
+                                // Replace the existing class
+                                navElement.className = "sb-sidenav accordion sb-sidenav-" + theme;
+                                });
+                            </script>
                         
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages2" aria-expanded="false" aria-controls="collapsePages">
@@ -119,12 +123,12 @@
                                    
                                 </nav>
                             </div>
-                            <a class="nav-link" href="charts.html">
+                            <a class="nav-link" id="chartLink" href="chart-report.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
                             </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            <a class="nav-link" href="bar-chart-report.html" >
+                                <div class="sb-nav-link-icon"  ><i class="fas fa-table"></i></div>
                                Completed Orders
                             </a>
                         </div>
@@ -310,7 +314,6 @@
                                         });
 
                                         
-
                                       </script>
                                       <button class="btn btn-light" id="barPrintBtn" onclick="print(barDiv)" >Print report</button>
                                 </div>
@@ -320,7 +323,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
+                               Completed Order List
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -332,6 +335,7 @@
                                             <th>Category</th>
                                             <th>Title</th>
                                             <th>Date</th>
+                                            <th>Quantity</th>
                                           
                                         </tr>
                                     </thead>
@@ -342,6 +346,7 @@
                                             <th>Category</th>
                                             <th>Title</th>
                                             <th>Date</th>
+                                            <th>Quantity</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>

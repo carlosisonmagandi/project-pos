@@ -6,6 +6,10 @@
         
         <!-- Include your master page JavaScript file -->
         <script src="js\staff-list.js"></script>
+
+        <!-- link for logout function -->
+        <script src="js\index.js"></script>
+
         <!-- Include the DataTables CSS file -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.css">
         
@@ -24,14 +28,8 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <script>
-         var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
-
-                if (accounts[0].session ==='False') {
-                    console.log("success")
-                    window.location.href = 'login.html';
-                }
-        </script>
+        <!-- call the authorization function -->
+        <script src="js/authorization.js"></script>
     </head>
     <body class="sb-nav-fixed" >
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

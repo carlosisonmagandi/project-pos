@@ -32,17 +32,38 @@ $(document).ready(function() {
 
 // --------------------------------------
 //Logout
-function Logout(){
-   
-    var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
-    if (accounts.length > 0) {
-        accounts[0].session = 'False'; // Set the session field to True
-        localStorage.setItem('accounts', JSON.stringify(accounts));
-       
+function Logout() {
+  var sessionValue = localStorage.getItem('sessionValue');
+
+  if (sessionValue) {
+    var valueSessions = JSON.parse(sessionValue);
+
+    if (valueSessions.length > 0) {
+      var lastSession = valueSessions[valueSessions.length - 1];
+
+      if (lastSession.value === 'True') {
+        lastSession.value = 'False';
+      }
+    } else {
+      valueSessions.push({ value: 'False' });
     }
 
-
+    localStorage.setItem('sessionValue', JSON.stringify(valueSessions));
     window.location.href = 'login.html';
+  }
+  else{
+     //Create first row record
+        // Retrieve session data from localStorage
+        var userSessions = JSON.parse(localStorage.getItem('sessionValue')) || [];
+        var userSession = {
+            value: 'False'
+        };
+        userSessions.push(userSession);
+    
+        localStorage.setItem('sessionValue', JSON.stringify(userSessions));
+  }
+
+ 
 }
 
 //-----------------------------------------

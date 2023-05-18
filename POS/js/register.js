@@ -2,7 +2,7 @@ function addStaff() {
     
 
     var userName = document.getElementById('userName').value;
-    var inputFirstName = document.getElementById('inputFirstName').value;
+    var inputFirstName = document.getElementById('firstName').value;
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
     var confirmPassword = document.getElementById('confirmPassword').value;
@@ -46,7 +46,7 @@ function addStaff() {
     
         // Clear input fields
         document.getElementById('userName').value = '';
-        document.getElementById('inputFirstName').value = '';
+        document.getElementById('firstName').value = '';
         document.getElementById('email').value = '';
         document.getElementById('password').value = '';
         document.getElementById('confirmPassword').value = '';

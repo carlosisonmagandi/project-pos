@@ -17,7 +17,6 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        
         <!-- call the authorization function -->
         <script src="js/authorization.js"></script>
        
@@ -54,60 +53,51 @@
                 <!-- link of event listener -->
                 <script src="js\event-listener.js"></script>
             </div>
+            
             <div id="layoutSidenav_content">
-                
+                <button class="btn btn-light" id="barPrintBtn" onclick="print()" ><span class="fas fa-print"></span> Print report</button>
                 <main id="main-content">
-                    <div class="container">
+                    <div class="container" style="padding: 5%;">
                         <div class="row justify-content-center">
-                            <div class="col-lg-7">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Staff</h3></div>
-                                    <div class="card-body">
-                                        <form onsubmit="event.preventDefault(); addStaff();">
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="userName" type="text" placeholder="Enter your user name" />
-                                                        <label for="userName">Username</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating">
-                                                        <input class="form-control" id="firstName" type="text" placeholder="Enter your first name" />
-                                                        <label for="firstName">First name</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="email" type="email" placeholder="Enter your  email" />
-                                                <label for="email">Email</label>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="password" type="password" placeholder="Enter your password" />
-                                                        <label for="password">Password</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="confirmPassword" type="password" placeholder="Enter your password" />
-                                                        <label for="confirmPassword">Confirm Password</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-4 mb-0">
-                                                <div class="d-grid">
-                                                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="card-footer text-center py-3">
-                                        <!-- <div class="small"><a href="login.html">Have an account? Go to login</a></div> -->
-                                    </div>
-                                </div>
+                        <!-- content -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Completed Order List
                             </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Image</th>
+                                            <th>Order No</th>
+                                            <th>Category</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
+                                            <th>Quantity</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Order No</th>
+                                            <th>Category</th>
+                                            <th>Title</th>
+                                            <th>Date</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- call the script to display data on table -->
+                            <script src="js\dashboard-item-table.js"></script>
+                        </div>
+                        <!-- ------- -->
                         </div>
                     </div>
                 </main>

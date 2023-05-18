@@ -14,6 +14,8 @@
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <!-- Include your master page JavaScript file -->
         <script src="js\manage-items.js"></script>
+        <!-- link for logout function -->
+        <script src="js\index.js"></script>
         
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
          <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -23,14 +25,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <script>
-        var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
-
-        if (accounts[0].session ==='False') {
-            console.log("success")
-            window.location.href = 'login.html';
-        }
-    </script>
+    <!-- call the authorization function -->
+    <script src="js/authorization.js"></script>
 <style>
     
   html, body {
@@ -174,8 +170,27 @@
       /* background-color: #7c3737; */
     }
 </style> 
+<script>
+window.onload = function() {
+  // Get the sessionValue from local storage
+  var sessionValue = localStorage.getItem('sessionValue');
 
+  if (sessionValue) {
+    var valueSessions = JSON.parse(sessionValue); // Parse the string into an array
+    // Find the user with matching value==='False'
+    var valueSession = valueSessions.find(function(session) {
+      return session.value ;
+    });
 
+    if (valueSession) {
+      var newValue = valueSession.value;
+      if(newValue=='False'){
+        window.location.href = 'login.html';
+      }
+    }
+  }
+};
+</script>
 </head>
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -760,6 +775,45 @@
 
               var totalSumVal = document.getElementById("total");
               totalSumVal.innerHTML = "";
+
+              //------------------------------------------------------------------------------------
+              //subtract quantity 
+              // Retrieve the records from local storage
+// Retrieve data from local storage
+const orders = JSON.parse(localStorage.getItem('orders'));
+const items = JSON.parse(localStorage.getItem('items'));
+
+function updateStock() {
+  if (!orders || !items) {
+    console.log('No data found in local storage');
+    return;
+  }
+
+  orders.forEach(order => {
+    const item = items.find(item => item.id === order.fKeyId);
+    if (item) {
+      const quantity = parseInt(order.quantity);
+      const stock = parseInt(item.stock);
+
+      if (quantity > stock) {
+        console.log(`Insufficient stock for order ID ${order.id}`);
+      } else {
+        item.stock = (stock - quantity).toString();
+        console.log(`Stock updated for order ID ${order.id}`);
+      }
+    } else {
+      console.log(`Item not found for order ID ${order.id}`);
+    }
+  });
+
+  // Save updated data back to local storage
+  localStorage.setItem('items', JSON.stringify(items));
+}
+
+updateStock();
+
+console.log(items);
+
                 
             });
             document.getElementById('compleBtn').addEventListener('click', function() {

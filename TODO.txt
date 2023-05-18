@@ -1,0 +1,27 @@
+TODO:
+
+side nav
+-charts
+-completed order
+-login logout of other page
+-display ng username sa dashboard
+
+2. lipat yung function ng pag update ng stock number
+3. create ng activity logs
+
+
+
+
+completedOrder
+
+date
+orderNo
+id
+title
+quantity
+price
+total
+fKey
+orderNo
+
+

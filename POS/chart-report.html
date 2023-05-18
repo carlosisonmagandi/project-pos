@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Include your master page JavaScript file -->
+        <script src="js\register.js"></script>
+        <!-- link for logout function -->
+        <script src="js\index.js"></script>
+        
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+       <!-- call the authorization function -->
+       <script src="js/authorization.js"></script>
+        
+       
+    </head>
+    <body class="sb-nav-fixed" >
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">My Shop</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Account Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+        
+                        <li><a class="dropdown-item" onclick="Logout()" >Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <!-- link of event listener -->
+                <script src="js\event-listener.js"></script>
+            </div>
+           
+            <div id="layoutSidenav_content" >
+               <div class="container" style="padding: 5%">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-area me-1"></i>
+                                    Chart for items
+                                </div>
+                                <div class="card-body">
+                                    <!-- <canvas id="myAreaChart" width="100%" height="40"></canvas> -->
+                                    <div id="pieDiv">
+                                        <canvas id="myChartItem"></canvas>
+                                        <script src="js\pie-chart.js"></script>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-6" >
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-bar me-1"></i>
+                                    Bar Chart for Profit
+                                    
+                                </div>
+                                <!-- <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div> -->
+                                <div id="barDiv">
+                                    <canvas id="myChart"></canvas>
+                                    
+                                    
+                                </div>
+                                
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                
+                                <script>
+                                    // Retrieve data from local storage
+                                    const allOrders = JSON.parse(localStorage.getItem('allOrders'));
+
+                                    // Calculate profits per month
+                                    const profitsPerMonth = {};
+
+                                    allOrders.forEach(order => {
+                                    const date = new Date(order.date);
+                                    const year = date.getFullYear();
+                                    const month = date.getMonth() + 1; // Months are zero-based, so we add 1
+                                    const formattedDate = `${year}-${month.toString().padStart(2, '0')}`;
+
+                                    if (!profitsPerMonth[formattedDate]) {
+                                        profitsPerMonth[formattedDate] = 0;
+                                    }
+
+                                    profitsPerMonth[formattedDate] += parseFloat(order.earnings); // Convert earnings to number
+                                    });
+
+                                    // Sort profits per month based on keys
+                                    const sortedProfitsPerMonth = Object.entries(profitsPerMonth).sort((a, b) => {
+                                    return a[0].localeCompare(b[0]);
+                                    });
+
+                                    // Extract sorted keys and values
+                                    const sortedLabels = sortedProfitsPerMonth.map(entry => entry[0]);
+                                    const sortedData = sortedProfitsPerMonth.map(entry => entry[1]);
+
+                                    // Chart configuration
+                                    const ctx = document.getElementById('myChart');
+                                    const chartData = {
+                                    labels: sortedLabels,
+                                    datasets: [{
+                                        label: 'Profit for the year 2023',
+                                        data: sortedData,
+                                        borderWidth: 1
+                                    }]
+                                    };
+
+                                    // Create chart
+                                    const chart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: chartData,
+                                    options: {
+                                        scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                        }
+                                    }
+                                    });
+
+                                    
+
+                                </script>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <button class="btn btn-light" id="barPrintBtn" onclick="print(barDiv)" ><span class="fas fa-print"></span>  Print report</button>
+               </div> 
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+        
+    </body>
+</html>

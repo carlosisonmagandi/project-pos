@@ -36,12 +36,18 @@ if (data) {
     const dateCell = document.createElement('td');
     dateCell.textContent = record.date;
 
+    const qtyCell = document.createElement('td');
+    qtyCell.textContent = record.quantity;
+
+    
+
     // Append cells to the row
     row.appendChild(imageCell);
     row.appendChild(orderNoCell);
     row.appendChild(categoryCell);
     row.appendChild(titleCell);
     row.appendChild(dateCell);
+    row.appendChild(qtyCell);
 
     // Append the row to the table body
     tableBody.appendChild(row);

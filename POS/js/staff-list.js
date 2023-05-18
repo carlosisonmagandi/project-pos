@@ -1,13 +1,13 @@
 $(document).ready(function() {
     // Retrieve data from local storage
-    var staffData = JSON.parse(localStorage.getItem('staffs'));
+    var staffData = JSON.parse(localStorage.getItem('accounts'));
   
     // Initialize the DataTable
     var table = $('#datatablesSimple1').DataTable({
       data: staffData,
       columns: [
         { data: 'userName' },
-        { data: 'inputFirstName' },
+        { data: 'firstName' },
         { data: 'email' },
         { data: 'password' },
         { data: 'role' },
