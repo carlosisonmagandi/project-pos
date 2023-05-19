@@ -21,7 +21,14 @@
          <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.css">
 
- 
+        <!-- date picker  -->
+          <!-- CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
+
+        <!-- JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+        <!-- ------------ -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -169,6 +176,21 @@
       height: 120px;
       /* background-color: #7c3737; */
     }
+    /* ------------------------------------------------ */
+    /* order history */
+    #myDiv {
+      width: 49%;
+      height: 60%;
+      background-color: white; /* Changed background color to white */
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Added box shadow */
+      position: absolute;
+      left: -800px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: left 0.5s ease;
+      z-index: 999;
+      border-radius: 6px;
+    }
 </style> 
 <script>
 window.onload = function() {
@@ -195,7 +217,7 @@ window.onload = function() {
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" >Welcome User:</a>
+        <a class="navbar-brand ps-3" >Logged in as: <strong> Admin</strong></a>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
@@ -242,6 +264,43 @@ window.onload = function() {
                       
                 </div>
             </div>
+            <!-- ----------------------------------------------------------------------------------------------- -->
+            <div id="myDiv" style="padding:2%;">
+              <div class="container">
+                <div class="row">
+                  <div class="col-3">
+                    <label>Please input date:</label>
+                  </div>
+                  <div class="col-3">
+                    <input type="text" id="datepicker">
+                  </div>
+                  <div class="col-1">
+
+                  </div>
+                  <div class="col-3" >
+                    <!-- Add an input textbox for filtering -->
+                    <input type="text" id="orderFilter" placeholder="Enter Order Number">
+                  </div>  
+
+                  <div style="height:350px;overflow-y: scroll;">
+                    <table id="table" class="table">
+                      <thead>
+                        <tr>
+                          <th>OrderNo.</th>
+                          <th>Title</th>
+                          <th>Date</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tableBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          <!-- call the POS-view js for the process of order history -->
+          <script src="js/POS-view-order-history.js" > </script>
+          <!-- ----------------------------------------------------------------------------------------------- -->
             
             <div class="row row-height-70">
                 <div id="row-height-70-container" style="height:400px;">
@@ -303,7 +362,7 @@ window.onload = function() {
         </div>
     </div>
     <div class="fixed-bottom">
-        <button style="padding:40px;">Show order history</button>
+        <button style="padding:40px; " id="slideButton">Show order history</button>
         <button style="padding:40px;margin-left: 20px;">My performance</button>
         
     </div>

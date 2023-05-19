@@ -69,19 +69,19 @@ function Logout() {
 //-----------------------------------------
 // Display username on sidebar
  // Retrieve Array account data from localStorage
- document.addEventListener('DOMContentLoaded', function() {
-    // Your JavaScript code here
-    var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+//  document.addEventListener('DOMContentLoaded', function() {
+//     // Your JavaScript code here
+//     var accounts = JSON.parse(localStorage.getItem('accounts')) || [];
   
-    // Get a reference to the <div> element
-    var divElement = document.querySelector('.sb-sidenav-footer');
+//     // Get a reference to the <div> element
+//     var divElement = document.querySelector('.sb-sidenav-footer');
   
-    // Check account
-    if (accounts.length > 0) {
-      // Update the HTML content of the <div> element with the account data
-      divElement.innerHTML = '<div class="small">Logged in as:</div>' + accounts[0].userName;
-    }
-  });
+//     // Check account
+//     if (accounts.length > 0) {
+//       // Update the HTML content of the <div> element with the account data
+//       divElement.innerHTML = '<div class="small">Logged in as:</div>' + accounts[0].userName;
+//     }
+//   });
   
   
  

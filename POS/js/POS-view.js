@@ -419,7 +419,7 @@ function displayOrders() {
         if (orderNo) {
             button.style.display = 'none';
         } else {
-            button.style.display = 'block';
+            button.style.display = 'none';
         }
     }
 
@@ -542,12 +542,8 @@ matchingItem.stock -= order.quantity;
 localStorage.setItem('items', JSON.stringify(itemsData));
 });
 
-
-
-
     
 }
-
 
  // Call the displayOrders function initially to show the existing records
     displayOrders();
